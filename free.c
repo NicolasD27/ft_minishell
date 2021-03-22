@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 20:03:12 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/14 17:39:53 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/22 21:37:27 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,31 @@ void	free_array(char **arr)
 	free(arr);
 }
 
-void	free_half(t_shell *shell, char **env)
+void	free_half(t_shell *shell, char **env, char *cmd)
 {
-	free(shell->cmd);
+	free(cmd);
 	free_array(env);
 	free_array_n(shell->history, 1024);
 	free(g_sig.cur_cmd);
+	if (shell->exports)
+		free_array(shell->exports);
+	ft_putstr_fd("exit\n", 1);
 	exit(EXIT_SUCCESS);
+}
+
+void	free_all(t_shell *shell, char **env, int code)
+{
+	free_array(env);
+	free(g_sig.cur_cmd);
+	free_array(shell->cmds);
+	if (shell->paths)
+		free_array(shell->paths);
+	free_array(shell->args);
+	free_array(shell->pipes);
+	free(shell->filename);
+	free(shell->cmd);
+	if (shell->exports)
+		free_array(shell->exports);
+	free_array_n(shell->history, 1024);
+	exit(code);
 }

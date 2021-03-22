@@ -6,55 +6,31 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 23:43:44 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/14 18:01:49 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/22 19:58:53 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	char_sub(char c, int *i)
+char	*char_sub(char c, int *i, int squote)
 {
 	*i += 1;
 	if (c == 'n')
-		return ('\n');
+		return ("\n");
 	else if (c == 't')
-		return ('\t');
-	else if (c == '\'')
-		return ('\'');
+		return ("\t");
+	else if (c == '\'' && squote % 2 != 1)
+		return ("\'");
 	else if (c == '"')
-		return ('\"');
+		return ("\"");
 	else if (c == '\\')
-		return ('\\');
+	{
+		if (squote % 2 == 1)
+			return ("\\\\");
+		return ("\\");
+	}
 	*i -= 1;
-	return ('\\');
-}
-
-char	*join_free_char(char *dest, char c, int j)
-{
-	char	*tmp;
-	char	*s;
-
-	if (!(s = malloc(2)))
-		return (dest);
-	s[0] = c;
-	s[1] = '\0';
-	dest[j] = '\0';
-	tmp = ft_strjoin(dest, s);
-	free(dest);
-	free(s);
-	return (tmp);
-}
-
-int		join_free(char **dest, char *s, int j)
-{
-	char *tmp;
-
-	(*dest)[j] = '\0';
-	tmp = ft_strjoin(*dest, s);
-	free(*dest);
-	free(s);
-	*dest = tmp;
-	return (ft_strlen(*dest));
+	return ("\\");
 }
 
 char	*quote_loop(char *arg, int *squote, int *dquote, char **env)
@@ -74,7 +50,7 @@ char	*quote_loop(char *arg, int *squote, int *dquote, char **env)
 		else if (arg[i] == '\"' && *squote % 2 == 0)
 			*dquote += 1;
 		else if (arg[i] == '\\' && (*squote % 2 == 1 || *dquote % 2 == 1))
-			s = join_free_char(s, char_sub(arg[i + 1], &i), j++);
+			j = join_sub(&s, char_sub(arg[i + 1], &i, *squote), j);
 		else if (arg[i] == '$' && *squote % 2 == 0)
 			j = join_free(&s, dollar_found(arg, env, &i), j);
 		else

@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 19:43:09 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/09 19:18:02 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/22 18:01:02 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,17 @@ char	*find_redirections(char ***args, int *redir)
 	while ((*args)[i])
 	{
 		if ((*args)[i][0] == '<')
+		{
+			if (filename)
+				free(filename);
 			filename = redir_left(args, redir, &i);
+		}
 		else if ((*args)[i][0] == '>')
+		{
+			if (filename)
+				free(filename);
 			filename = redir_right(args, redir, &i);
+		}
 		i++;
 	}
 	return (filename);

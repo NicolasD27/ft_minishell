@@ -6,11 +6,25 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 01:31:36 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/12 20:03:28 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/22 21:18:31 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int		index_of(char *s, char c)
+{
+	int i;
+
+	i = 0;
+	while (s[i] || s[i] == c)
+	{
+		if (s[i] == c)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
 
 int		find_env(char **env, char *target)
 {
@@ -19,7 +33,7 @@ int		find_env(char **env, char *target)
 	char	*value;
 
 	i = 0;
-	while (env[i])
+	while (env && env[i])
 	{
 		dehash(env[i], &key, &value);
 		free(value);

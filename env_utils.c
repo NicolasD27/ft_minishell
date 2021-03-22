@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 17:28:00 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/09 16:47:48 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/21 18:44:45 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	add_env(char *key, char *value, char ***env)
 	char	**new_env;
 
 	i = 0;
-	while ((*env)[i])
+	while (*env && (*env)[i])
 		i++;
 	if (!(new_env = malloc((i + 2) * sizeof(char *))))
 		return ;
@@ -29,7 +29,8 @@ void	add_env(char *key, char *value, char ***env)
 	free(tmp);
 	while (--i >= 0)
 		new_env[i] = (*env)[i];
-	free(*env);
+	if (*env)
+		free(*env);
 	*env = new_env;
 }
 

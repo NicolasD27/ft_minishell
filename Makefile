@@ -6,14 +6,15 @@
 #    By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/14 12:47:27 by nidescre          #+#    #+#              #
-#    Updated: 2021/03/14 17:33:00 by nidescre         ###   ########.fr        #
+#    Updated: 2021/03/22 21:10:08 by nidescre         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		=  main.c quote.c utils.c chdir.c echo_pwd.c env.c env2.c \
 			   env_options.c env_options2.c env_options3.c env_print.c\
 			   env_utils.c gets.c setenv.c dollars.c redirections.c utils2.c\
-			   signal.c exec.c command.c pipes.c termcap.c free.c parse.c
+			   signal.c exec.c command.c pipes.c termcap.c free.c parse.c \
+			   exit.c join.c export_print.c
 
 
 OBJS		= ${SRCS:.c=.o}

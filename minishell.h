@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 12:37:55 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/14 17:37:11 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/22 21:09:51 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct	s_shell
 	char	**pipes;
 	char	**args;
 	char	**paths;
+	char	**exports;
 	char	*filename;
 	char	*cmd;
 	char	**history;
@@ -49,6 +50,13 @@ typedef struct	s_shell
 
 t_sig			g_sig;
 
+int				join_free(char **dest, char *s, int j);
+int				join_sub(char **dest, char *s, int j);
+char			*join_free_char(char *dest, char c, int j);
+int				array_size(char **arr);
+void			print_env_export(char **env, char **exports);
+void			free_all(t_shell *shell, char **env, int code);
+void			ft_exit(t_shell *shell, char **env);
 int				ft_putchar(int c);
 struct termios	init_termcap(void);
 void			get_termcap(char *s);
@@ -65,12 +73,12 @@ void			handle_down(t_shell *shell, char *cmd, int *cmd_len, int *n);
 void			handle_arrows(t_shell *shell, char *cmd, int *cmd_len, int *n);
 void			handle_del(t_shell *shell, char *cmd, int *cmd_len, int *n);
 void			handle_char(t_shell *shell, char *cmd, int *cmd_len, int *n);
-void			get_cmd(char *cmd, char **env, t_shell *shell);
+char			*get_cmd(char **env, t_shell *shell);
 char			**get_paths(char **env);
 int				exec_prog(char **env, t_shell *shell);
 int				find_prog(char **argv, char **env, char **paths,
 				t_shell *shell);
-void			free_half(t_shell *shell, char **env);
+void			free_half(t_shell *shell, char **env, char *cmd);
 void			free_array(char **arr);
 void			free_array_int(int **arr, int n);
 void			free_array_n(char **arr, int n);
@@ -80,7 +88,7 @@ int				route_cmd(char ***env, t_shell *shell);
 void			find_dollars(char ***args, char **env);
 char			*dollar_found(char *arg, char **env, int *i);
 int				ft_echo(char **args);
-int				ft_pwd(char **env, char **args);
+int				ft_pwd(char **args);
 int				find_env(char **env, char *target);
 void			update_pwd(char ***env, char *pwd);
 int				ft_chdir(char *target, char ***env);
@@ -91,8 +99,8 @@ void			remove_env(char ***env, int n);
 void			dehash(char *line, char **key, char **value);
 void			rehash(char ***env, int i, char *key, char *value);
 int				index_of(char *s, char c);
-void			ft_unsetenv(char **args, char ***env);
-int				ft_export(char **args, char ***env);
+void			ft_unsetenv(char **args, char ***env, t_shell *shell);
+int				ft_export(t_shell *shell, char ***env);
 int				ft_env(char **env, t_shell *shell);
 int				env_loop(char ****en_cp_pt_cm, t_shell *shell, int **options,
 				int *i);

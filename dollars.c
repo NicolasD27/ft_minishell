@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:25:09 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/12 20:04:00 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/22 20:00:00 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,22 @@ void	replace_dollar(char **arg, int j, char *rep, int offset)
 	*arg = tmp;
 }
 
+char	*not_in_env(char *tmp)
+{
+	int		i;
+	char	*value;
+
+	i = 0;
+	while (ft_isdigit(tmp[i]))
+		i++;
+	if (i > 0)
+		value = ft_strdup(tmp + i);
+	else
+		value = ft_strdup("");
+	free(tmp);
+	return (value);
+}
+
 char	*replace_dollar_env(char *arg, char **env, int *j)
 {
 	int		i;
@@ -43,10 +59,7 @@ char	*replace_dollar_env(char *arg, char **env, int *j)
 	*j += i - 1;
 	tmp[i - 1] = '\0';
 	if ((i = find_env(env, tmp)) == -1)
-	{
-		free(tmp);
-		return (ft_strdup(""));
-	}
+		return (not_in_env(tmp));
 	else
 	{
 		free(tmp);

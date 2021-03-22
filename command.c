@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:28:24 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/13 17:44:09 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/22 21:38:13 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,15 @@ void	clear_cmd(t_shell *shell, int *fd, int redir)
 	}
 	free(shell->filename);
 	free_array(shell->args);
-	free_array(shell->paths);
+	if (shell->paths)
+		free_array(shell->paths);
 }
 
 int		parse_error(t_shell *shell)
 {
 	free_array(shell->args);
-	free_array(shell->paths);
+	if (shell->paths)
+		free_array(shell->paths);
 	write(1, "parse error near `\n'\n", 21);
 	return (1);
 }
@@ -72,10 +74,10 @@ int		handle_cmds(char ***env, char *cmd, t_shell *shell)
 	redir = 0;
 	ft_strcpy(g_sig.cur_cmd, cmd);
 	shell->args = split_quoting_set(cmd, " \t");
+	shell->paths = get_paths(*env);
+	shell->filename = find_redirections(&(shell->args), &redir);
 	if (handle_quote(&(shell->args), *env) != -1)
 	{
-		shell->paths = get_paths(*env);
-		shell->filename = find_redirections(&(shell->args), &redir);
 		if (redir == 666)
 			return (parse_error(shell));
 		if (shell->filename)

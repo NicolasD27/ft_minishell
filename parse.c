@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 17:29:23 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/14 18:07:54 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/22 20:01:04 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	handle_down(t_shell *shell, char *cmd, int *cmd_len, int *n)
 	cmd[*cmd_len - 2] = '\0';
 	ft_strcpy(shell->history[shell->his_n], cmd);
 	*n -= 1;
-	while (cmd_begin(cmd, shell->history[shell->his_n - *n]) != 0 && *n >= 0)
+	while (*n >= 0 && cmd_begin(cmd, shell->history[shell->his_n - *n]) != 0)
 		*n -= 1;
 	if (*n < 0)
 	{
