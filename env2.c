@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 17:42:13 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/09 21:26:39 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:50:50 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		chdir_env(char **env, char *target)
 
 int		print_env_version(void)
 {
-	write(1, "env (GNU coreutils) 8.30\n\
+	write(2, "env (GNU coreutils) 8.30\n\
 Copyright (C) 2018 Free Software Foundation, Inc.\n\
 License GPLv3+: GNU GPL version 3 or later \
 <https://gnu.org/licenses/gpl.html>.\nThis is free software: \
@@ -83,7 +83,7 @@ and Assaf Gordon.\n", 342);
 
 int		print_env_help(void)
 {
-	write(1, "Usage: env [OPTION]... [-] [NAME=VALUE]... [COMMAND [ARG]...]\n\
+	write(2, "Usage: env [OPTION]... [-] [NAME=VALUE]... [COMMAND [ARG]...]\n\
 Set each NAME to VALUE in the environment and run COMMAND.\n\n\
 Mandatory arguments to long options are mandatory for short \
 options too.\n\

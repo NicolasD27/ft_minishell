@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 19:43:09 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/22 18:01:02 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:53:07 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		fd_error(char *filename)
 {
-	write(1, "no such file or directory:", 26);
-	write(1, filename, ft_strlen(filename));
-	write(1, "\n", 1);
+	write(2, "no such file or directory:", 26);
+	write(2, filename, ft_strlen(filename));
+	write(2, "\n", 1);
 	free(filename);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 01:31:36 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/22 21:18:31 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:30:00 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		find_env(char **env, char *target)
 	{
 		dehash(env[i], &key, &value);
 		free(value);
-		if (!ft_strcmp(key, target))
+		if (!ft_strcmp(target, key))
 		{
 			free(key);
 			return (i);

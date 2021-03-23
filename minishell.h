@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 12:37:55 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/22 21:09:51 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/23 16:06:31 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int				route_cmd(char ***env, t_shell *shell);
 void			find_dollars(char ***args, char **env);
 char			*dollar_found(char *arg, char **env, int *i);
 int				ft_echo(char **args);
-int				ft_pwd(char **args);
+int				ft_pwd(void);
 int				find_env(char **env, char *target);
 void			update_pwd(char ***env, char *pwd);
 int				ft_chdir(char *target, char ***env);

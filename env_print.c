@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 19:38:53 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/09 21:27:40 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:52:03 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void	print_verbose(char **args, int *options, char **env)
 	char	*value;
 
 	if (options[0] > 0)
-		write(1, "cleaning environ\n", 17);
+		write(2, "cleaning environ\n", 17);
 	print_unset(options, env);
 	if ((n = find_env(env, "chdir")) != -1)
 	{
 		dehash(env[n], &key, &value);
-		write(1, "chdir:  '", 9);
-		write(1, value, ft_strlen(value));
-		write(1, "'\n", 2);
+		write(2, "chdir:  '", 9);
+		write(2, value, ft_strlen(value));
+		write(2, "'\n", 2);
 		free(key);
 		free(value);
 	}
@@ -47,9 +47,9 @@ void	print_unset(int *options, char **env)
 		n = 0;
 		while (unsetted[n])
 		{
-			write(1, "unset:  ", 8);
-			write(1, unsetted[n], ft_strlen(unsetted[n]));
-			write(1, "\n", 1);
+			write(2, "unset:  ", 8);
+			write(2, unsetted[n], ft_strlen(unsetted[n]));
+			write(2, "\n", 1);
 			n++;
 		}
 		free(key);
@@ -64,17 +64,17 @@ void	print_args(char **args)
 
 	if (args[0])
 	{
-		write(1, "executing: ", 11);
-		write(1, args[0], ft_strlen(args[0]));
-		write(1, "\n", 1);
+		write(2, "executing: ", 11);
+		write(2, args[0], ft_strlen(args[0]));
+		write(2, "\n", 1);
 		n = 1;
 		while (args[n])
 		{
-			write(1, "  arg[", 5);
+			write(2, "  arg[", 5);
 			ft_putnbr_fd(n, 1);
-			write(1, "]= '", 4);
-			write(1, args[n], ft_strlen(args[n]));
-			write(1, "'\n", 2);
+			write(2, "]= '", 4);
+			write(2, args[n], ft_strlen(args[n]));
+			write(2, "'\n", 2);
 			n++;
 		}
 	}

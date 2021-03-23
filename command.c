@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:28:24 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/22 21:38:13 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:49:48 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		parse_error(t_shell *shell)
 	free_array(shell->args);
 	if (shell->paths)
 		free_array(shell->paths);
-	write(1, "parse error near `\n'\n", 21);
+	write(2, "parse error near `\n'\n", 21);
 	return (1);
 }
 

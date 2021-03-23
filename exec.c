@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:30:28 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/22 21:36:35 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/23 16:48:08 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		route_cmd(char ***env, t_shell *shell)
 	else if (!ft_strcmp(shell->args[0], "echo"))
 		ft_echo(shell->args);
 	else if (!ft_strcmp(shell->args[0], "pwd"))
-		return (ft_pwd(shell->args));
+		return (ft_pwd());
 	else if (!ft_strcmp(shell->args[0], "cd"))
 		return (ft_chdir(shell->args[1], env));
 	else if (!ft_strcmp(shell->args[0], "export"))
@@ -39,11 +39,13 @@ void	kill_prog(void)
 
 	g_sig.sigquit = 0;
 	buff = 0;
-	read(fileno(stdin), &buff, 1);
-	if (buff == 4)
+	while (read(fileno(stdin), &buff, 1) > 0)
 	{
-		kill(g_sig.pid, 9);
-		g_sig.ret = 0;
+		if (buff == 4)
+		{
+			kill(g_sig.pid, 9);
+			g_sig.ret = 0;
+		}
 	}
 }
 
@@ -68,7 +70,7 @@ int		exec_prog(char **env, t_shell *shell)
 	waitpid(g_sig.pid, &status, 0);
 	if (r_pid != 0)
 		kill(r_pid, 9);
-	if (g_sig.sigint == 1 || g_sig.sigquit == 1)
+	if (g_sig.sigint == 0 || g_sig.sigquit == 0)
 		return (g_sig.ret);
 	return (WEXITSTATUS(status));
 }

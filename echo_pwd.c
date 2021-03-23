@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 17:35:06 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/22 20:01:34 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/23 16:06:51 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,15 @@ int		ft_echo(char **args)
 	return (0);
 }
 
-int		ft_pwd(char **args)
+int		ft_pwd(void)
 {
 	char	*pwd;
 
 	if (!(pwd = malloc(2048)))
 		return (1);
-	if (args[1])
-	{
-		write(1, "pwd: too many arguments\n", 24);
-		return (1);
-	}
-	else
-	{
-		getcwd(pwd, 2048);
-		write(1, pwd, ft_strlen(pwd));
-		free(pwd);
-	}
+	getcwd(pwd, 2048);
+	write(1, pwd, ft_strlen(pwd));
+	free(pwd);
 	write(1, "\n", 1);
 	return (0);
 }

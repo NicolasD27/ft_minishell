@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 23:43:44 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/22 19:58:53 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:52:36 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		handle_quote(char ***args, char **env)
 	if (dquote % 2 != 0 || squote % 2 != 0)
 	{
 		g_sig.ret = 130;
-		write(1, "unclosed quote\n", 15);
+		write(2, "unclosed quote\n", 15);
 		return (-1);
 	}
 	return (0);

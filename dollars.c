@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:25:09 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/22 20:00:00 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/23 16:00:40 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*replace_dollar_env(char *arg, char **env, int *j)
 	if (!(tmp = malloc((1 + ft_strlen(arg + 1)) * sizeof(char))))
 		return (ft_strdup(""));
 	i = 0;
-	while (arg[++i] && ft_isalnum(arg[i]))
+	while (arg[++i] && (ft_isalnum(arg[i]) || arg[i] == '_'))
 		tmp[i - 1] = arg[i];
 	*j += i - 1;
 	tmp[i - 1] = '\0';
@@ -83,5 +83,5 @@ char	*dollar_found(char *arg, char **env, int *i)
 			&& arg[*i + 1] != '"'
 			&& arg[*i + 1] != '\'')
 		return (replace_dollar_env(arg + *i, env, i));
-	return ("$");
+	return (ft_strdup("$"));
 }

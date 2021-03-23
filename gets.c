@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 17:29:52 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/22 21:39:33 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/23 18:07:35 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int		cmd_begin(char *s1, char *s2)
 
 int		handle_read(char *cmd, int cmd_len, int *n, t_shell *shell)
 {
+	if (g_sig.sigint == 0)
+		cmd[0] = '\0';
 	if (cmd[cmd_len] == 127)
 		handle_del(shell, cmd, &cmd_len, n);
 	else if (cmd[cmd_len] == '\t')
@@ -90,12 +92,16 @@ int		handle_read(char *cmd, int cmd_len, int *n, t_shell *shell)
 	else if (cmd[cmd_len] == 27)
 		handle_arrows(shell, cmd, &cmd_len, n);
 	else
-		handle_char(shell, cmd, &cmd_len, n);
-	if (g_sig.sigint == 0)
 	{
-		g_sig.sigint = 1;
-		cmd[0] = cmd[cmd_len - 1];
-		cmd_len = 1;
+		handle_char(shell, cmd, &cmd_len, n);
+		if (g_sig.sigint == 0)
+		{
+			g_sig.sigint = 1;
+			if (!(cmd[cmd_len - 1] == 127 || cmd[cmd_len - 1] == 27
+						|| cmd[cmd_len - 1] == '\t'))
+				cmd[0] = cmd[cmd_len - 1];
+			cmd_len = 1;
+		}
 	}
 	return (cmd_len);
 }
@@ -112,11 +118,14 @@ char	*get_cmd(char **env, t_shell *shell)
 	n = 0;
 	while (read(STDIN_FILENO, cmd + cmd_len, 1) > 0 && cmd[cmd_len] != '\n')
 	{
-		if (cmd[cmd_len] == 4 && cmd_len == 0)
+		if (cmd[cmd_len] == 4
+				&& ((cmd_len == 0 && n == 0) || g_sig.sigint == 0))
 			free_half(shell, env, cmd);
 		else
 			cmd_len = handle_read(cmd, cmd_len, &n, shell);
 	}
+	if (g_sig.sigint == 0)
+		cmd[0] = '\0';
 	if (n != 0)
 		ft_strcpy(cmd, shell->history[shell->his_n - n]);
 	else

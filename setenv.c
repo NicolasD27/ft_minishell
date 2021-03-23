@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 17:28:51 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/22 21:10:47 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:53:25 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		export_arg(char *arg, char ***env, t_shell *shell)
 
 	if (arg[0] == '=')
 	{
-		write(1, "wrong argument\n", 15);
+		write(2, "wrong argument\n", 15);
 		return (1);
 	}
 	pair = ft_split(arg, '=');
