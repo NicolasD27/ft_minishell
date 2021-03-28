@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 12:05:19 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/22 19:54:37 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/28 19:44:23 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	init_shell(t_shell *shell)
 	int i;
 
 	shell->exports = NULL;
+	shell->paths = NULL;
 	if (!(shell->history = malloc(1024 * sizeof(char *))))
 		return ;
 	i = -1;

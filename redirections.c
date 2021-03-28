@@ -6,20 +6,11 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 19:43:09 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/23 15:53:07 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/23 22:37:36 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int		fd_error(char *filename)
-{
-	write(2, "no such file or directory:", 26);
-	write(2, filename, ft_strlen(filename));
-	write(2, "\n", 1);
-	free(filename);
-	return (1);
-}
 
 void	shift_args(char ***args, int i, int offset)
 {
@@ -91,6 +82,26 @@ char	*redir_left(char ***args, int *redir, int *i)
 	return (filename);
 }
 
+int		check_filename(char *filename, int *redir)
+{
+	int		fd;
+
+	if (filename && *redir)
+	{
+		if (*redir == -1)
+			fd = open(filename, O_RDONLY, 0600);
+		else
+			fd = open(filename, O_RDWR | O_CREAT | O_APPEND, 0600);
+		if (fd == -1)
+		{
+			*redir = 999;
+			return (1);
+		}
+		close(fd);
+	}
+	return (0);
+}
+
 char	*find_redirections(char ***args, int *redir)
 {
 	int		i;
@@ -112,6 +123,8 @@ char	*find_redirections(char ***args, int *redir)
 				free(filename);
 			filename = redir_right(args, redir, &i);
 		}
+		if (check_filename(filename, redir))
+			return (filename);
 		i++;
 	}
 	return (filename);

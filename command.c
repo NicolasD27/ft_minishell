@@ -6,11 +6,20 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:28:24 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/23 15:49:48 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/28 19:30:32 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int		fd_error(char *filename)
+{
+	write(2, "no such file or directory: ", 27);
+	write(2, filename, ft_strlen(filename));
+	write(2, "\n", 1);
+	free(filename);
+	return (1);
+}
 
 int		handle_redir(t_shell *shell, int redir, int *fa, int *fb)
 {
@@ -78,8 +87,11 @@ int		handle_cmds(char ***env, char *cmd, t_shell *shell)
 	shell->filename = find_redirections(&(shell->args), &redir);
 	if (handle_quote(&(shell->args), *env) != -1)
 	{
+		shell->redir = redir;
 		if (redir == 666)
 			return (parse_error(shell));
+		if (redir == 999)
+			return (fd_error(shell->filename));
 		if (shell->filename)
 			if (handle_redir(shell, redir, fd, fd + 1) == 1)
 				return (1);

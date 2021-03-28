@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 20:03:12 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/22 21:37:27 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/28 19:48:04 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	free_half(t_shell *shell, char **env, char *cmd)
 
 void	free_all(t_shell *shell, char **env, int code)
 {
+	free(shell->cmd);
 	free_array(env);
 	free(g_sig.cur_cmd);
 	free_array(shell->cmds);
@@ -73,7 +74,6 @@ void	free_all(t_shell *shell, char **env, int code)
 	free_array(shell->args);
 	free_array(shell->pipes);
 	free(shell->filename);
-	free(shell->cmd);
 	if (shell->exports)
 		free_array(shell->exports);
 	free_array_n(shell->history, 1024);

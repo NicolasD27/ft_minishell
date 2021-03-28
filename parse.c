@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 17:29:23 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/23 18:05:57 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/28 19:15:53 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,11 @@ void	handle_del(t_shell *shell, char *cmd, int *cmd_len, int *n)
 	}
 	if (!(*cmd_len == 0 || cmd[*cmd_len - 1] == 127))
 	{
-		*cmd_len -= 1;
 		write(1, "\b \b", 3);
+		if (cmd[*cmd_len - 1] < 0)
+			*cmd_len -= 2;
+		else
+			*cmd_len -= 1;
 	}
 }
 

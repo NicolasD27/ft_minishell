@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 17:35:06 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/23 16:06:51 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/28 18:55:39 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		ft_echo(char **args)
 			write(1, " ", 1);
 		else
 			sp = 1;
-		write(1, args[i], ft_strlen(args[i]));
+		ft_putstr_fd(args[i], 1);
 		i++;
 	}
 	if (nl)

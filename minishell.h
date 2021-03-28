@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 12:37:55 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/23 16:06:31 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/28 19:40:05 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct	s_shell
 	char	*cmd;
 	char	**history;
 	int		his_n;
+	int		redir;
 }				t_shell;
 
 t_sig			g_sig;
