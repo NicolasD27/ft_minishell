@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:30:28 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/28 19:47:52 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/28 20:32:56 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		exec_prog(char **env, t_shell *shell)
 	i = 0;
 	while (shell->pipes[i])
 		i++;
-	if (!(shell->filename && shell->redir > 0) && (i <= 1
+	if (!(shell->filename && shell->redir < 0) && (i <= 1
 	|| !ft_strcmp(g_sig.cur_cmd, shell->pipes[0])))
 	{
 		if (0 == (r_pid = fork()))
@@ -84,7 +84,6 @@ void	abs_prog(char **argv, char **env, t_shell *shell)
 	int		exec_error;
 	int		j;
 
-	exec_error = -1;
 	if (argv[0][0] == '/')
 		exec_error = execve(argv[0], argv, env);
 	else if ((j = find_env(env, "PWD")) != -1)

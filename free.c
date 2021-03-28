@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 20:03:12 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/28 19:48:04 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/28 20:35:24 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	free_half(t_shell *shell, char **env, char *cmd)
 
 void	free_all(t_shell *shell, char **env, int code)
 {
-	free(shell->cmd);
 	free_array(env);
 	free(g_sig.cur_cmd);
 	free_array(shell->cmds);

@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 12:05:19 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/28 19:44:23 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/28 20:12:16 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,13 @@ int		shell_loop(char ***env, t_shell *shell)
 	shell->cmds = split_quoting_set(shell->cmd, ";");
 	if (semi_colon_error(shell->cmd))
 	{
+		free(shell->cmd);
 		i = -1;
 		while (shell->cmds[++i])
 			g_sig.ret = handle_pipes(env, shell->cmds[i], shell);
 	}
-	free(shell->cmd);
+	else
+		free(shell->cmd);
 	free_array(shell->cmds);
 	return (0);
 }
