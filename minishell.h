@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 12:37:55 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/28 20:13:02 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/29 13:11:35 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,14 @@ typedef struct	s_shell
 
 t_sig			g_sig;
 
+void			write_prompt(void);
 int				join_free(char **dest, char *s, int j);
 int				join_sub(char **dest, char *s, int j);
 char			*join_free_char(char *dest, char c, int j);
 int				array_size(char **arr);
 void			print_env_export(char **env, char **exports);
 void			free_all(t_shell *shell, char **env, int code);
-void			ft_exit(t_shell *shell, char **env);
+int				ft_exit(t_shell *shell, char **env);
 int				ft_putchar(int c);
 struct termios	init_termcap(void);
 void			get_termcap(char *s);

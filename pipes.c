@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:26:31 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/28 20:34:19 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/29 12:00:45 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,20 @@ void	handle_pipe(t_shell *shell, int i, char ***env, int **pipefd)
 	dup2(savefd[1], fileno(stdout));
 }
 
+int		is_pipe(char *cmd)
+{
+	int i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == '|')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int		handle_pipes(char ***env, char *cmd, t_shell *shell)
 {
 	int i;
@@ -83,6 +97,8 @@ int		handle_pipes(char ***env, char *cmd, t_shell *shell)
 		}
 		free_array_int(pipefd, i);
 	}
+	else if (is_pipe(cmd))
+		ft_putstr_fd("multiligne error\n", 1);
 	else
 		handle_cmds(env, cmd, shell);
 	free_array(shell->pipes);

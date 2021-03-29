@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 21:09:08 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/22 21:11:29 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/29 12:11:10 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,13 @@ void	print_env_export(char **env, char **exports)
 		write(1, "declare -x ", 11);
 		dehash(sorted[i], &key, &value);
 		ft_putstr_fd(key, 1);
-		ft_putstr_fd("=\"", 2);
-		ft_putstr_fd(value, 1);
-		write(1, "\"\n", 2);
+		if (value[0] || find_env(env, key) != -1)
+		{
+			ft_putstr_fd("=\"", 2);
+			ft_putstr_fd(value, 1);
+			write(1, "\"", 1);
+		}
+		write(1, "\n", 1);
 		free(key);
 		free(value);
 		i++;

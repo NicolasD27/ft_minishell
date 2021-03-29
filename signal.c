@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:25:31 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/22 19:03:10 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/29 13:59:57 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,7 @@ void	quit_handler(int signum)
 		{
 			cmd = ft_strtrim(g_sig.cur_cmd, " ");
 			g_sig.sigquit = 2;
-			write(2, "[1] ", 4);
-			write(2, pid_str, ft_strlen(pid_str));
-			write(2, " quit (core dumped) ", 20);
-			write(2, cmd, ft_strlen(cmd));
-			write(2, "\n", 1);
+			ft_putstr_fd("Quit (core dumped)\n", 2);
 			kill(g_sig.pid, 3);
 			g_sig.ret = 131;
 			free(cmd);
@@ -41,8 +37,11 @@ void	quit_handler(int signum)
 void	int_handler(int signum)
 {
 	(void)signum;
-	if (g_sig.pid == 0)
-		write(2, "\n$> ", 4);
 	g_sig.ret = 130;
+	if (g_sig.pid == 0)
+	{
+		write(2, "\n", 1);
+		write_prompt();
+	}
 	g_sig.sigint = 0;
 }

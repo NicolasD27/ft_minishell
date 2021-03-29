@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 17:29:52 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/28 20:09:16 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/29 12:53:51 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int		cmd_begin(char *s1, char *s2)
 
 int		handle_read(char *cmd, int cmd_len, int *n, t_shell *shell)
 {
-	if (g_sig.sigint == 0)
+	if (g_sig.sigint == 0 && cmd_len != 0)
 		cmd[0] = '\0';
 	if (cmd[cmd_len] == 127)
 		handle_del(shell, cmd, &cmd_len, n);
@@ -91,7 +91,7 @@ int		handle_read(char *cmd, int cmd_len, int *n, t_shell *shell)
 		get_termcap("bl");
 	else if (cmd[cmd_len] == 27)
 		handle_arrows(shell, cmd, &cmd_len, n);
-	else
+	else if (cmd[cmd_len] != 4)
 	{
 		handle_char(shell, cmd, &cmd_len, n);
 		if (g_sig.sigint == 0)

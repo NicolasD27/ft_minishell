@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 17:29:23 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/28 20:02:58 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/29 13:48:25 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	handle_up(t_shell *shell, char *cmd, int *cmd_len, int *n)
 	}
 	i = 0;
 	get_termcap("dl");
-	write(1, "$> ", 3);
+	write_prompt();
 	while (shell->history[shell->his_n - *n][i])
 	{
 		ft_putchar(shell->history[shell->his_n - *n][i]);
@@ -56,7 +56,7 @@ void	handle_down(t_shell *shell, char *cmd, int *cmd_len, int *n)
 	}
 	i = 0;
 	get_termcap("dl");
-	write(1, "$> ", 3);
+	write_prompt();
 	while (shell->history[shell->his_n - *n][i])
 	{
 		ft_putchar(shell->history[shell->his_n - *n][i]);

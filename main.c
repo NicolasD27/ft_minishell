@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 12:05:19 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/28 20:12:16 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:03:03 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,40 @@ int		semi_colon_error(char *cmd)
 	return (1);
 }
 
+void	write_prompt(void)
+{
+	char	*pwd;
+	char	**dirs;
+	int		i;
+
+	if (g_sig.ret == 0)
+		ft_putstr_fd("\033[1;32m➜  ", 2);
+	else
+		ft_putstr_fd("\033[1;31m➜  ", 2);
+	if (!(pwd = malloc(2048)))
+		return ;
+	getcwd(pwd, 2048);
+	dirs = ft_split(pwd, '/');
+	i = 0;
+	while (dirs[i])
+		i++;
+	ft_putstr_fd("\033[1;34m", 2);
+	if (i == 0)
+		ft_putstr_fd("/", 2);
+	else
+		ft_putstr_fd(dirs[i - 1], 2);
+	ft_putstr_fd("\033[0m ", 2);
+	free_array(dirs);
+	free(pwd);
+}
+
 int		shell_loop(char ***env, t_shell *shell)
 {
 	int		i;
 
 	g_sig.pid = 0;
 	g_sig.sigquit = 0;
-	write(2, "$> ", 3);
+	write_prompt();
 	shell->cmd = get_cmd(*env, shell);
 	if (shell->cmd[0])
 		ft_strcpy(shell->history[shell->his_n++], shell->cmd);

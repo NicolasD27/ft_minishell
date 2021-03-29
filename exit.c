@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 15:58:16 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/22 19:44:52 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/29 12:26:21 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		modulo(int n)
 	return (n % 256);
 }
 
-void	ft_exit(t_shell *shell, char **env)
+int		ft_exit(t_shell *shell, char **env)
 {
 	int i;
 
@@ -48,7 +48,7 @@ void	ft_exit(t_shell *shell, char **env)
 	else if (is_numeric(shell->args[1]) && i == 2)
 		free_all(shell, env, modulo(ft_atoi(shell->args[1])));
 	else if (is_numeric(shell->args[1]) && i > 2)
-		ft_putstr_fd("bash: exit: too many arguments\n", 1);
+		ft_putstr_fd("bash: erit: too many arguments\n", 1);
 	else
 	{
 		ft_putstr_fd("bash: exit: ", 1);
@@ -56,4 +56,5 @@ void	ft_exit(t_shell *shell, char **env)
 		ft_putstr_fd(": numeric argument required\n", 1);
 		free_all(shell, env, 2);
 	}
+	return (1);
 }

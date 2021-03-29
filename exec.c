@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:30:28 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/28 20:32:56 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/29 12:25:52 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		route_cmd(char ***env, t_shell *shell)
 {
 	if (!ft_strcmp(shell->args[0], "exit"))
-		ft_exit(shell, *env);
+		return (ft_exit(shell, *env));
 	else if (!ft_strcmp(shell->args[0], "echo"))
 		ft_echo(shell->args);
 	else if (!ft_strcmp(shell->args[0], "pwd"))

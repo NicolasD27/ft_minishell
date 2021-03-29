@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/02 14:12:29 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/09 21:26:26 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/29 11:59:37 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ char				**split_quoting_set(char const *s, char *set)
 	if (!s[0])
 		return (when_empty());
 	sclean = ft_strtrim(s, set);
+	sclean = clean_trim(sclean, " ", 0);
 	nb = nb_of_splits_quoting(s, set);
 	splits = split_words_quoting(sclean, nb, set);
 	return (splits);
