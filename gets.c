@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 17:29:52 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/29 12:53:51 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/30 18:33:47 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,12 +124,12 @@ char	*get_cmd(char **env, t_shell *shell)
 		else
 			cmd_len = handle_read(cmd, cmd_len, &n, shell);
 	}
-	if (g_sig.sigint == 0)
-		cmd[0] = '\0';
 	if (n != 0)
 		ft_strcpy(cmd, shell->history[shell->his_n - n]);
 	else
 		cmd[cmd_len] = '\0';
+	if (g_sig.sigint == 0)
+		cmd[0] = '\0';
 	ft_putchar('\n');
 	return (cmd);
 }

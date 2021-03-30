@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 19:26:31 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/29 12:00:45 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/30 18:01:32 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,19 @@ void	handle_pipe(t_shell *shell, int i, char ***env, int **pipefd)
 int		is_pipe(char *cmd)
 {
 	int i;
+	int squote;
+	int dquote;
 
+	dquote = 0;
+	squote = 0;
 	i = 0;
 	while (cmd[i])
 	{
-		if (cmd[i] == '|')
+		if (cmd[i] == '\'')
+			squote++;
+		else if (cmd[i] == '"')
+			dquote++;
+		if (cmd[i] == '|' && dquote % 2 == 0 && squote % 2 == 0)
 			return (1);
 		i++;
 	}

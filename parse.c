@@ -6,7 +6,7 @@
 /*   By: nidescre <nidescre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/14 17:29:23 by nidescre          #+#    #+#             */
-/*   Updated: 2021/03/29 13:48:25 by nidescre         ###   ########.fr       */
+/*   Updated: 2021/03/30 18:38:09 by nidescre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,13 @@ void	handle_down(t_shell *shell, char *cmd, int *cmd_len, int *n)
 
 void	handle_arrows(t_shell *shell, char *cmd, int *cmd_len, int *n)
 {
+	if (g_sig.sigint == 0)
+	{
+		cmd[0] = '\0';
+		*n = 0;
+		*cmd_len = 0;
+		g_sig.sigint = 1;
+	}
 	read(STDIN_FILENO, cmd + ++(*cmd_len), 1);
 	read(STDIN_FILENO, cmd + ++(*cmd_len), 1);
 	if (cmd[*cmd_len] == 'A')
